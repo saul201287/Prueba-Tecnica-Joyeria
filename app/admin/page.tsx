@@ -512,7 +512,7 @@ export default function AdminPanel() {
               className={`px-6 py-2 ${
                 !isRegistering
                   ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white"
-                  : "bg-white text-gray-700"
+                  : "bg-white text-black-700"
               }`}>
               <UserPlus className="inline-block mr-2" size={16} /> Iniciar
               Sesión
@@ -522,14 +522,14 @@ export default function AdminPanel() {
               className={`px-6 py-2 ${
                 isRegistering
                   ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white"
-                  : "bg-white text-gray-700"
+                  : "bg-white text-black-700"
               }`}>
               <PlusCircle className="inline-block mr-2" size={16} /> Registrarse
             </button>
           </div>
 
           {successMessage && (
-            <div className="p-3 bg-green-50 border border-green-100 text-green-800 rounded-lg text-sm mb-4 flex items-center gap-2">
+            <div className="p-3 bg-green-50 border border-green-100 text-black-800 rounded-lg text-sm mb-4 flex items-center gap-2">
               <CheckCircle className="text-black-700" />
               <span className="font-medium">{successMessage}</span>
             </div>
@@ -538,20 +538,20 @@ export default function AdminPanel() {
           {!isRegistering ? (
             <form onSubmit={handleLogin} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-black-700 mb-1">
                   Email
                 </label>
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-800 placeholder-gray-400 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg text-black-800 placeholder-gray-400 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-black-700 mb-1">
                   Contraseña
                 </label>
                 <input
@@ -580,20 +580,20 @@ export default function AdminPanel() {
           ) : (
             <form onSubmit={handleSignUp} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-black-700 mb-1">
                   Nombre completo
                 </label>
                 <input
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-800 placeholder-gray-400 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg text-black-800 placeholder-gray-400 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-black-700 mb-1">
                   Email
                 </label>
                 <input
@@ -606,7 +606,7 @@ export default function AdminPanel() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-black-700 mb-1">
                   Contraseña
                 </label>
                 <input

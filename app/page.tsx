@@ -289,18 +289,30 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg">
-        <div className="container mx-auto px-4 py-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-rose-50">
+      <header className="bg-gradient-to-r from-rose-600 via-pink-600 to-purple-600 text-white shadow-2xl">
+        <div className="container mx-auto px-6 py-8">
           <div className="flex justify-between items-center">
-            <h1 className="text-4xl font-bold">✨ JOYERÍA Elegante</h1>
+            <div className="flex items-center space-x-3">
+              <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                <span className="text-2xl">💎</span>
+              </div>
+              <div>
+                <h1 className="text-4xl font-bold bg-gradient-to-r from-white to-rose-100 bg-clip-text text-transparent">
+                  Elegante Joyería
+                </h1>
+                <p className="text-rose-100 text-sm font-medium">
+                  Belleza que perdura
+                </p>
+              </div>
+            </div>
             <button
               onClick={() => setShowCart(!showCart)}
-              className="relative bg-white text-purple-600 px-6 py-3 rounded-full font-semibold hover:bg-purple-50 transition flex items-center gap-2 cursor-pointer">
+              className="relative bg-white/10 backdrop-blur-md border border-white/20 text-white px-6 py-3 rounded-2xl font-semibold hover:bg-white/20 transition-all duration-300 flex items-center gap-3 cursor-pointer shadow-lg hover:shadow-xl">
               <ShoppingCart size={24} />
-              Carrito
+              <span className="hidden sm:inline">Carrito</span>
               {cart.length > 0 && (
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm">
+                <span className="absolute -top-2 -right-2 bg-gradient-to-r from-orange-400 to-red-500 text-white rounded-full w-7 h-7 flex items-center justify-center text-sm font-bold shadow-lg animate-pulse">
                   {cart.length}
                 </span>
               )}
@@ -315,16 +327,30 @@ export default function Home() {
           <VoiceAssistant
             onAction={(action) => {
               if (action.type === "apply_filters") {
-                setProductFilters(prev => {
+                setProductFilters((prev) => {
                   const newFilters = {
                     ...prev,
-                    ...(action.filters.search !== undefined && { search: action.filters.search }),
-                    ...(action.filters.category !== undefined && { category: action.filters.category }),
-                    ...(action.filters.minPrice !== undefined && { minPrice: action.filters.minPrice }),
-                    ...(action.filters.maxPrice !== undefined && { maxPrice: action.filters.maxPrice }),
-                    ...(action.filters.inStock !== undefined && { inStock: action.filters.inStock }),
-                    ...(action.filters.sortBy !== undefined && { sortBy: action.filters.sortBy }),
-                    ...(action.filters.sortOrder !== undefined && { sortOrder: action.filters.sortOrder }),
+                    ...(action.filters.search !== undefined && {
+                      search: action.filters.search,
+                    }),
+                    ...(action.filters.category !== undefined && {
+                      category: action.filters.category,
+                    }),
+                    ...(action.filters.minPrice !== undefined && {
+                      minPrice: action.filters.minPrice,
+                    }),
+                    ...(action.filters.maxPrice !== undefined && {
+                      maxPrice: action.filters.maxPrice,
+                    }),
+                    ...(action.filters.inStock !== undefined && {
+                      inStock: action.filters.inStock,
+                    }),
+                    ...(action.filters.sortBy !== undefined && {
+                      sortBy: action.filters.sortBy,
+                    }),
+                    ...(action.filters.sortOrder !== undefined && {
+                      sortOrder: action.filters.sortOrder,
+                    }),
                   };
                   return newFilters;
                 });
@@ -525,55 +551,78 @@ export default function Home() {
               </div>
             </div>
           )}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {filteredProducts.length === 0 ? (
-              <div className="col-span-full text-center py-12">
-                <p className="text-black text-lg">
-                  No se encontraron productos con los filtros seleccionados.
-                </p>
-                <button
-                  onClick={() =>
-                    setProductFilters({
-                      search: "",
-                      category: "",
-                      minPrice: "",
-                      maxPrice: "",
-                      inStock: false,
-                      sortBy: "name",
-                      sortOrder: "asc",
-                    })
-                  }
-                  className="mt-4 text-purple-600 hover:text-purple-700 underline cursor-pointer">
-                  Limpiar filtros
-                </button>
+              <div className="col-span-full text-center py-16">
+                <div className="max-w-md mx-auto">
+                  <div className="w-24 h-24 bg-gradient-to-br from-slate-100 to-slate-200 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <Search className="w-10 h-10 text-slate-400" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-slate-800 mb-3">
+                    No encontramos productos
+                  </h3>
+                  <p className="text-slate-600 mb-6">
+                    No se encontraron productos con los filtros seleccionados.
+                  </p>
+                  <button
+                    onClick={() =>
+                      setProductFilters({
+                        search: "",
+                        category: "",
+                        minPrice: "",
+                        maxPrice: "",
+                        inStock: false,
+                        sortBy: "name",
+                        sortOrder: "asc",
+                      })
+                    }
+                    className="bg-gradient-to-r from-rose-500 to-pink-500 text-white px-6 py-3 rounded-2xl font-semibold hover:from-rose-600 hover:to-pink-600 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-xl">
+                    Limpiar filtros
+                  </button>
+                </div>
               </div>
             ) : (
               filteredProducts.map((product) => (
                 <div
                   key={product.id}
                   onClick={() => router.push(`/product/${product.id}`)}
-                  className="bg-white rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 overflow-hidden cursor-pointer group">
-                  <div
-                    className={`h-64 flex items-center justify-center bg-center bg-cover group-hover:scale-105 transition-transform duration-300 ${
-                      product.image_url
-                        ? ""
-                        : "bg-gradient-to-br from-purple-200 to-pink-200"
-                    }`}
-                    style={
-                      product.image_url
-                        ? { backgroundImage: `url(${product.image_url})` }
-                        : {}
-                    }>
-                    {!product.image_url && <span className="text-6xl">💎</span>}
+                  className="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden cursor-pointer transform hover:-translate-y-2 border border-slate-100">
+                  <div className="relative overflow-hidden">
+                    <div
+                      className={`h-72 flex items-center justify-center bg-center bg-cover group-hover:scale-110 transition-transform duration-700 ${
+                        product.image_url
+                          ? ""
+                          : "bg-gradient-to-br from-rose-100 via-pink-50 to-purple-100"
+                      }`}
+                      style={
+                        product.image_url
+                          ? { backgroundImage: `url(${product.image_url})` }
+                          : {}
+                      }>
+                      {!product.image_url && (
+                        <span className="text-6xl opacity-60 group-hover:scale-110 transition-transform duration-300">
+                          💎
+                        </span>
+                      )}
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
-                  <div className="p-4">
-                    <h3 className="text-lg font-bold mb-2 text-black group-hover:text-purple-600 transition-colors">
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold mb-3 text-slate-800 group-hover:text-rose-600 transition-colors duration-300 line-clamp-2">
                       {product.name}
                     </h3>
                     <div className="flex justify-between items-center">
-                      <span className="text-2xl font-bold text-purple-600">
+                      <span className="text-3xl font-bold bg-gradient-to-r from-rose-600 to-pink-600 bg-clip-text text-transparent">
                         ${product.price}
                       </span>
+                      <div className="flex items-center gap-2 text-sm text-slate-500">
+                        <div
+                          className={`w-2 h-2 rounded-full ${
+                            product.stock > 0 ? "bg-green-400" : "bg-red-400"
+                          }`}
+                        />
+                        {product.stock > 0 ? "Disponible" : "Agotado"}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -591,7 +640,7 @@ export default function Home() {
                   <h2 className="text-2xl font-bold text-black">Tu Carrito</h2>
                   <button
                     onClick={() => setShowCart(false)}
-                    className="text-gray-500 hover:text-gray-700 text-2xl">
+                    className="text-gray-500 hover:text-black-700 text-2xl">
                     ✕
                   </button>
                 </div>
@@ -620,17 +669,17 @@ export default function Home() {
                               onClick={() =>
                                 updateQuantity(item.id, item.quantity - 1)
                               }
-                              className="bg-gray-200 px-3 py-1 rounded hover:bg-gray-300">
+                              className="bg-gray-200 px-3 py-1 rounded hover:bg-gray-300 text-black">
                               -
                             </button>
-                            <span className="font-semibold">
+                            <span className="font-semibold text-black">
                               {item.quantity}
                             </span>
                             <button
                               onClick={() =>
                                 updateQuantity(item.id, item.quantity + 1)
                               }
-                              className="bg-gray-200 px-3 py-1 rounded hover:bg-gray-300">
+                              className="bg-gray-200 px-3 py-1 rounded hover:bg-gray-300 text-black">
                               +
                             </button>
                             <button
@@ -696,7 +745,7 @@ export default function Home() {
                           name: e.target.value,
                         })
                       }
-                      className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500"
+                      className="w-full px-4 py-2 border rounded-lg focus:ring-2 text-black focus:ring-purple-500"
                       required
                     />
                   </div>
@@ -714,7 +763,7 @@ export default function Home() {
                           email: e.target.value,
                         })
                       }
-                      className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500"
+                      className="w-full px-4 py-2 border rounded-lg text-black focus:ring-2 focus:ring-purple-500"
                       required
                     />
                   </div>
@@ -732,7 +781,7 @@ export default function Home() {
                           phone: e.target.value,
                         })
                       }
-                      className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500"
+                      className="w-full px-4 py-2 border rounded-lg text-black focus:ring-2 focus:ring-purple-500"
                       required
                     />
                   </div>
