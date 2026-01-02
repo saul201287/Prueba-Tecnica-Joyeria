@@ -457,6 +457,7 @@ export default function AdminPanel() {
 
   const [isRegistering, setIsRegistering] = useState(false);
   const [name, setName] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
   const handleSignUp = async (e: React.FormEvent) => {
@@ -536,100 +537,112 @@ export default function AdminPanel() {
           )}
 
           {!isRegistering ? (
-            <form onSubmit={handleLogin} className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-black-700 mb-1">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg text-black-800 placeholder-gray-400 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                  required
-                />
-              </div>
+<form onSubmit={handleLogin} className="space-y-4">
+<div>
+<label className="block text-sm font-medium text-black mb-1">
+Email
+</label>
+<input
+type="email"
+value={email}
+onChange={(e) => setEmail(e.target.value)}
+className="w-full px-4 py-2 border border-gray-300 rounded-lg text-black placeholder-gray-500 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+required
+/>
+</div>
 
-              <div>
-                <label className="block text-sm font-medium text-black-700 mb-1">
-                  Contraseña
-                </label>
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-800 placeholder-gray-400"
-                  required
-                />
-              </div>
+<div>
+<label className="block text-sm font-medium text-black mb-1">
+Contraseña
+</label>
+<input
+type="password"
+value={password}
+onChange={(e) => setPassword(e.target.value)}
+className="w-full px-4 py-2 border border-gray-300 rounded-lg text-black placeholder-gray-500 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+required
+/>
+</div>
 
-              {error && (
-                <div className="p-3 bg-red-50 border border-red-100 text-red-800 rounded-lg text-sm flex items-center gap-2">
-                  <AlertCircle className="text-red-600" />
-                  <span className="font-medium">{error}</span>
-                </div>
-              )}
+{error && (
+<div className="p-3 bg-red-50 border border-red-100 text-red-800 rounded-lg text-sm flex items-center gap-2">
+<AlertCircle className="text-red-600" />
+<span className="font-medium">{error}</span>
+</div>
+)}
 
+<button
+type="submit"
+disabled={loading}
+className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition disabled:opacity-50">
+{loading ? "Iniciando sesión..." : "Iniciar Sesión"}
+</button>
+</form>
+) : (
+<form onSubmit={handleSignUp} className="space-y-4">
+<div>
+<label className="block text-sm font-medium text-black mb-1">
+Nombre completo
+</label>
+<input
+type="text"
+value={name}
+onChange={(e) => setName(e.target.value)}
+className="w-full px-4 py-2 border border-gray-300 rounded-lg text-black placeholder-gray-500 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+required
+/>
+</div>
+
+<div>
+<label className="block text-sm font-medium text-black mb-1">
+Email
+</label>
+<input
+type="email"
+value={email}
+onChange={(e) => setEmail(e.target.value)}
+className="w-full px-4 py-2 border border-gray-300 rounded-lg text-black placeholder-gray-500 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+required
+/>
+</div>
+
+<div>
+<label className="block text-sm font-medium text-black mb-1">
+Contraseña
+</label>
+<input
+type="password"
+value={password}
+onChange={(e) => setPassword(e.target.value)}
+className="w-full px-4 py-2 border border-gray-300 rounded-lg text-black placeholder-gray-500 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+required
+/>
+</div>
+
+<div>
+<label className="block text-sm font-medium text-black mb-1">
+Confirmar Contraseña
+</label>
+<input
+type="password"
+value={confirmPassword}
+onChange={(e) => setConfirmPassword(e.target.value)}
+className="w-full px-4 py-2 border border-gray-300 rounded-lg text-black placeholder-gray-500 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+required
+/>
+</div>
+
+{error && (
+<div className="p-3 bg-red-50 border border-red-100 text-red-800 rounded-lg text-sm flex items-center gap-2">
+<AlertCircle className="text-red-600" />
+<span className="font-medium">{error}</span>
+</div>
+)}
               <button
                 type="submit"
                 disabled={loading}
                 className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition disabled:opacity-50">
-                {loading ? "Iniciando sesión..." : "Iniciar Sesión"}
-              </button>
-            </form>
-          ) : (
-            <form onSubmit={handleSignUp} className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-black-700 mb-1">
-                  Nombre completo
-                </label>
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg text-black-800 placeholder-gray-400 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-black-700 mb-1">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-black-700 mb-1">
-                  Contraseña
-                </label>
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-800 placeholder-gray-400"
-                  required
-                />
-              </div>
-
-              {error && (
-                <div className="p-3 bg-red-50 border border-red-100 text-red-800 rounded-lg text-sm flex items-center gap-2">
-                  <AlertCircle className="text-red-600" />
-                  <span className="font-medium">{error}</span>
-                </div>
-              )}
-
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition disabled:opacity-50">
-                {loading ? "Registrando..." : "Registrarse"}
+                {loading ? "Creando cuenta..." : "Crear Cuenta"}
               </button>
             </form>
           )}
@@ -956,7 +969,7 @@ export default function AdminPanel() {
                     onChange={(e) =>
                       setProductForm({ ...productForm, name: e.target.value })
                     }
-                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-gray-800 placeholder-gray-400 focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-black placeholder-gray-500 focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
                     required
                   />
                 </div>
@@ -1023,7 +1036,7 @@ export default function AdminPanel() {
                           stock: e.target.value,
                         })
                       }
-                      className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-gray-800 placeholder-gray-400 focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                      className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-black placeholder-gray-500 focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
                       required
                     />
                   </div>
