@@ -84,6 +84,10 @@ export default function VoiceAssistant({
 
       if (audioRef.current) {
         audioRef.current.src = audioUrl;
+        audioRef.current.onended = () => {
+          setIsSpeaking(false);
+          URL.revokeObjectURL(audioUrl);
+        };
         try {
           await audioRef.current.play();
         } catch (playErr) {
@@ -338,13 +342,15 @@ export default function VoiceAssistant({
       }
     };
 
-    window.addEventListener("pointerdown", handler, { once: true });
-    window.addEventListener("keydown", handler, { once: true });
-
-    return () => {
+    const cleanup = () => {
       window.removeEventListener("pointerdown", handler);
       window.removeEventListener("keydown", handler);
     };
+
+    window.addEventListener("pointerdown", handler, { once: true });
+    window.addEventListener("keydown", handler, { once: true });
+
+    return cleanup;
   }, [pendingSpeech]);
 
   const toggleListening = () => {
